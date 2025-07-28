@@ -158,3 +158,48 @@ fieldset {
   background-color: transparent;
   color: #869999;
 }
+
+
+
+
+
+/* tabs */
+.tabs-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  position: relative;
+}
+
+.tab-button.active {
+  color: #000;
+  font-weight: bold;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #007bff;
+}
+
+.tab-content {
+  padding: 20px;
+}

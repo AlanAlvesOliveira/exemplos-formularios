@@ -1,27 +1,21 @@
-import { useState } from "react";
+import { useRef } from "react";
 
-export default function Login() {
 
-  const [enteredValue, setEnteredValues] = useState({
-    email: '',
-    password: ''
-  });
+export default function LoginWithRefs() {
+
+  const email = useRef();
+  const password = useRef();
 
   function handdleSubmit(event) {
     event.preventDefault()
-    console.log(enteredValue);
+    console.log(email.current.value);
+    console.log(password.current.value);
   }
 
-  function handleInputChange(identifier, value) {
-    setEnteredValues(prevValues => ({
-      ...prevValues,
-      [identifier]: value
-    }));
 
-  }
   return (
     <form onSubmit={handdleSubmit}>
-      <h2>Login</h2>
+      <h2>Login With Refs</h2>
 
       <div className="control-row">
         <div className="control no-margin">
@@ -30,8 +24,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
-            onChange={(event) => handleInputChange('email', event.target.value)}
-            value={enteredValue.email}
+            ref={email}
           />
         </div>
 
@@ -41,8 +34,7 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
-            onChange={(event) => handleInputChange('password', event.target.value)}
-            value={enteredValue.password}
+            ref={password}
           />
         </div>
       </div>
