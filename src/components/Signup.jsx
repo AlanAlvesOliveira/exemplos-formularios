@@ -1,13 +1,18 @@
 export default function Signup() {
+
     function handdleSubmit(event) {
         event.preventDefault();
+
         const fd = new FormData(event.target);
         const acquisitionChannel = fd.getAll('acquisition');
+
         const data = Object.fromEntries(fd.entries());
         data.acquisition = acquisitionChannel
+
         console.log(data);
         event.target.reset();
     }
+
     return (
         <form onSubmit={handdleSubmit}>
             <h2>Welcome on board!</h2>

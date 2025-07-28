@@ -1,26 +1,71 @@
 import { useState } from "react";
 
 export default function Login() {
-
-  const [enteredValue, setEnteredValues] = useState({
-    email: '',
-    password: ''
+  const [formState, setFormState] = useState({
+    values: {
+      email: '',
+      password: ''
+    },
+    touched: {
+      email: false,
+      password: false
+    }
   });
 
-  function handdleSubmit(event) {
-    event.preventDefault()
-    console.log(enteredValue);
+  const { values, touched } = formState;
+
+  const emailIsInvalid = touched.email && !values.email.includes('@');
+  const passwordIsInvalid = touched.password && values.password.trim().length < 6;
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // Marca todos os campos como tocados ao submeter
+    setFormState(prev => ({
+      ...prev,
+      touched: { email: true, password: true }
+    }));
+
+    if (emailIsInvalid || passwordIsInvalid) {
+      console.log('Please enter valid credentials');
+      return;
+    }
+
+    console.log('Submitting:', values);
   }
 
   function handleInputChange(identifier, value) {
-    setEnteredValues(prevValues => ({
-      ...prevValues,
-      [identifier]: value
+    setFormState(prev => ({
+      values: {
+        ...prev.values,
+        [identifier]: value
+      },
+      touched: {
+        ...prev.touched,
+        [identifier]: false
+      }
     }));
-
   }
+
+  function handleInputBlur(identifier) {
+    setFormState(prev => ({
+      ...prev,
+      touched: {
+        ...prev.touched,
+        [identifier]: true
+      }
+    }));
+  }
+
+  function handleReset() {
+    setFormState({
+      values: { email: '', password: '' },
+      touched: { email: false, password: false }
+    });
+  }
+
   return (
-    <form onSubmit={handdleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <div className="control-row">
@@ -30,9 +75,14 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
+            autoComplete="username"
+            onBlur={() => handleInputBlur('email')}
             onChange={(event) => handleInputChange('email', event.target.value)}
-            value={enteredValue.email}
+            value={values.email}
           />
+          <div className="control-error">
+            {emailIsInvalid && <p>Please enter a valid email address</p>}
+          </div>
         </div>
 
         <div className="control no-margin">
@@ -41,15 +91,29 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
+            autoComplete="current-password"
+            onBlur={() => handleInputBlur('password')}
             onChange={(event) => handleInputChange('password', event.target.value)}
-            value={enteredValue.password}
+            value={values.password}
+            minLength="6"
           />
+          <div className="control-error">
+            {passwordIsInvalid && <p>Password must be at least 6 characters</p>}
+          </div>
         </div>
       </div>
 
       <p className="form-actions">
-        <button className="button button-flat">Reset</button>
-        <button className="button">Login</button>
+        <button
+          type="button"
+          className="button button-flat"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+        <button type="submit" className="button">
+          Login
+        </button>
       </p>
     </form>
   );
