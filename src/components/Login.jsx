@@ -96,6 +96,7 @@ export default function Login() {
           onChange={(event) => handleInputChange('email', event.target.value)}
           value={values.email}
           error={emailIsInvalid && 'Please enter a valid email!'}
+          autoComplete="username"
         />
 
         <div className="control no-margin">
@@ -104,11 +105,12 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
-            autoComplete="current-password"
             onBlur={() => handleInputBlur('password')}
             onChange={(event) => handleInputChange('password', event.target.value)}
             value={values.password}
             minLength="6"
+            autoComplete="current-password"
+
           />
           <div className="control-error">
             {passwordIsInvalid && <p>Password must be at least 6 characters</p>}

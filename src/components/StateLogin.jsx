@@ -7,23 +7,22 @@ export default function StateLogin() {
     const {
         value: emailValue,
         handleInputChange: handleEmailChange,
-        handleInputBlur: handleEmailBlur,
+        handleTouched: handleEmailTouched,
         hasError: emailHasError
     } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
     const {
         value: passwordValue,
         handleInputChange: handlePasswordChange,
-        handleInputBlur: handlePasswordBlur,
+        handleTouched: handlePasswordTouched,
         hasError: passwordHasError
     } = useInput('', (value) => hasMinLength(value, 6));
-
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        handleEmailBlur();
-        handlePasswordBlur();
+        handleEmailTouched();
+        handlePasswordTouched();
 
         if (emailHasError || passwordHasError) {
             return;
@@ -43,10 +42,11 @@ export default function StateLogin() {
                     id="email"
                     type="email"
                     name="email"
-                    onBlur={handleEmailBlur}
+                    onBlur={handleEmailTouched}
                     onChange={handleEmailChange}
                     value={emailValue}
                     error={emailHasError && 'Please enter a valid email!'}
+                    autoComplete="username"
                 />
 
                 <Input
@@ -54,19 +54,17 @@ export default function StateLogin() {
                     id="password"
                     type="password"
                     name="password"
-                    onBlur={handlePasswordBlur}
+                    onBlur={handlePasswordTouched}
                     onChange={handlePasswordChange}
                     value={passwordValue}
                     error={passwordHasError && 'Please enter a valid email!'}
+                    autoComplete="current-password"
                 />
 
             </div>
 
             <p className="form-actions">
-                <button
-                    type="rest"
-                    className="button button-flat"
-                >
+                <button type="reset" className="button button-flat">
                     Reset
                 </button>
                 <button type="submit" className="button">
