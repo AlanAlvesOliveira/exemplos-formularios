@@ -3,6 +3,7 @@ import Header from './components/Header.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import LoginWithRefs from './components/LoginWithRefs.jsx';
+import StateLogin from './components/StateLogin.jsx';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' ou 'signup'
@@ -15,6 +16,8 @@ export default function App() {
         return <Signup />;
       case 'LoginWithRefs':
         return <LoginWithRefs />;
+      case 'StateLogin':
+        return <StateLogin />;
       default:
         throw new Error('tab não encontrada');
     }
@@ -38,6 +41,15 @@ export default function App() {
             >
               Login Ref
             </button>
+
+            <button
+              className={`tab-button ${activeTab === 'StateLogin' ? 'active' : ''}`}
+              onClick={() => setActiveTab('StateLogin')}
+            >
+              Login Custom Hook
+            </button>
+
+
             <button
               className={`tab-button ${activeTab === 'signup' ? 'active' : ''}`}
               onClick={() => setActiveTab('signup')}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 export default function Login() {
   const [formState, setFormState] = useState({
@@ -69,7 +70,8 @@ export default function Login() {
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
+
+        {/* <div className="control no-margin">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -83,7 +85,18 @@ export default function Login() {
           <div className="control-error">
             {emailIsInvalid && <p>Please enter a valid email address</p>}
           </div>
-        </div>
+        </div> */}
+
+        <Input
+          label="email"
+          id="email"
+          type="email"
+          name="email"
+          onBlur={() => handleInputBlur('email')}
+          onChange={(event) => handleInputChange('email', event.target.value)}
+          value={values.email}
+          error={emailIsInvalid && 'Please enter a valid email!'}
+        />
 
         <div className="control no-margin">
           <label htmlFor="password">Password</label>

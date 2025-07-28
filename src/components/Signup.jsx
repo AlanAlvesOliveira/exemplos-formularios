@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function Signup() {
+
+    const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
 
     function handdleSubmit(event) {
         event.preventDefault();
@@ -9,7 +13,15 @@ export default function Signup() {
         const data = Object.fromEntries(fd.entries());
         data.acquisition = acquisitionChannel
 
+        if (data.password !== data['confirm-password']) {
+            setPasswordAreNotEqual(true);
+            return;
+        } else {
+            setPasswordAreNotEqual(false);
+        }
+
         console.log(data);
+        alert('enviado!')
         event.target.reset();
     }
 
@@ -26,7 +38,7 @@ export default function Signup() {
             <div className="control-row">
                 <div className="control">
                     <label htmlFor="password">Password</label>
-                    <input id="password" type="password" name="password" />
+                    <input id="password" type="password" name="password" required />
                 </div>
 
                 <div className="control">
@@ -36,6 +48,9 @@ export default function Signup() {
                         type="password"
                         name="confirm-password"
                     />
+                    <div className="control-error">
+                        {passwordAreNotEqual && <p>Password must be at least 6 characters</p>}
+                    </div>
                 </div>
             </div>
 
