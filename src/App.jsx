@@ -4,6 +4,7 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import LoginWithRefs from './components/LoginWithRefs.jsx';
 import StateLogin from './components/StateLogin.jsx';
+import SignupWithFormActions from './components/SignupWithFormActions.jsx';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('login'); // 'login' ou 'signup'
@@ -14,6 +15,8 @@ export default function App() {
         return <Login />;
       case 'signup':
         return <Signup />;
+      case 'SignupWithFormActions':
+        return <SignupWithFormActions />
       case 'LoginWithRefs':
         return <LoginWithRefs />;
       case 'StateLogin':
@@ -29,12 +32,14 @@ export default function App() {
       <main>
         <div className="tabs-container">
           <div className="tabs-header">
+
             <button
               className={`tab-button ${activeTab === 'login' ? 'active' : ''}`}
               onClick={() => setActiveTab('login')}
             >
               Login
             </button>
+
             <button
               className={`tab-button ${activeTab === 'LoginWithRefs' ? 'active' : ''}`}
               onClick={() => setActiveTab('LoginWithRefs')}
@@ -49,12 +54,18 @@ export default function App() {
               Login Custom Hook
             </button>
 
-
             <button
               className={`tab-button ${activeTab === 'signup' ? 'active' : ''}`}
               onClick={() => setActiveTab('signup')}
             >
               Sign Up
+            </button>
+
+            <button
+              className={`tab-button ${activeTab === 'SignupWithFormActions' ? 'active' : ''}`}
+              onClick={() => setActiveTab('SignupWithFormActions')}
+            >
+              Sign Up Actions
             </button>
 
           </div>

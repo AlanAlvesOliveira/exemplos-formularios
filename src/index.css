@@ -98,6 +98,10 @@ fieldset {
   margin: 0;
 }
 
+.control-terms {
+  flex-direction: column;
+}
+
 .control input[type='checkbox'] {
   display: inline-block;
   width: auto;
@@ -118,6 +122,16 @@ fieldset {
 
 .control-error p {
   margin: 0;
+}
+
+.error-action {
+  margin: 0;
+  color: #ffca99;
+  font-size: 0.8rem;
+}
+
+.error {
+  color: red;
 }
 
 .control-row {
